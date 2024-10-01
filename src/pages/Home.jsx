@@ -9,9 +9,13 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 const Home = () => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [categoryId, setCategoryId] = React.useState(0);
+  const [sortType, setSortType] = React.useState(0);
+
 
   React.useEffect(() => {
-    fetch('https://73f63710afb6cf88.mokky.dev/items')
+    setIsLoading(true)
+    fetch(`https://73f63710afb6cf88.mokky.dev/items?category=${categoryId === 0 ? '*' : categoryId}&sortBy=${sortType}`)
       .then((data) => {
         return data.json();
       })
@@ -24,13 +28,13 @@ const Home = () => {
       .finally(() => setIsLoading(false));
     
       window.scrollTo(0, 0)
-  }, []);
+  }, [categoryId, sortType]);
 
   return (
     <div className='container'>
       <div className="content__top">
-        <Categories />
-        <Sort />
+        <Categories value={categoryId} setValue={(index) => setCategoryId(index)}/>
+        <Sort sortType={sortType} setSortType={(type) => setSortType(type)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
