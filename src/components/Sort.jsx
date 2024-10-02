@@ -35,7 +35,7 @@ const Sort = ({ sortType, setSortType }) => {
         <div className="sort__popup">
           <ul>
             {sorts.map((el, i) => {
-              return <li className={sortType === el.sort ? 'active' : ''} onClick={() => sortFunction(el, i)} key={i}>{el.name}</li>
+              return <li className={sort === el.name ? 'active' : ''} onClick={() => sortFunction(el, i)} key={i}>{el.name}</li>
             })}
           </ul>
         </div>
