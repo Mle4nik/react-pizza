@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 
-const Sort = () => {
+const Sort = ({ sortType, setSortType }) => {
 
   const [isVisible, setIsVisible] = useState(false)
   const [sort, setSort] = useState('популярности')
-  const [active, setActive] = useState(0)
   
-  const sorts = ['популярности', ' цене', 'алфавиту']
+  const sorts = [{name: 'популярности', sort: '-rating'}, {name: 'возрастанию цены', sort: 'price'}, {name: 'убыванию цены', sort: '-price'}, {name: 'алфавиту', sort: 'title'}]
 
-  function sortFunction(el, i) {
+  function sortFunction(el) {
     setIsVisible(!isVisible)
-    setSort(el)
-    setActive(i)
+    setSort(el.name)
+    setSortType(el.sort)
   }
 
   return (
@@ -36,7 +35,7 @@ const Sort = () => {
         <div className="sort__popup">
           <ul>
             {sorts.map((el, i) => {
-              return <li className={active === i ? 'active' : ''} onClick={() => sortFunction(el, i)} key={i}>{el}</li>
+              return <li className={sort === el.name ? 'active' : ''} onClick={() => sortFunction(el, i)} key={i}>{el.name}</li>
             })}
           </ul>
         </div>
