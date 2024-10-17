@@ -3,11 +3,12 @@ import ReactPaginate from 'react-paginate';
 
 import styles from './PaginationBlock.module.scss';
 
-const PaginationBlock = ({ total_pages, setCurrentPage }) => {
+const PaginationBlock = ({ setCurrentPage }) => {
+  
   return (
-    <>
+    <div className={styles.root}>
       <ReactPaginate
-        className={styles.root}
+        className={styles.paginate}
         breakLabel="..."
         nextLabel=">"
         onPageChange={(event) => setCurrentPage(event.selected)}
@@ -16,7 +17,7 @@ const PaginationBlock = ({ total_pages, setCurrentPage }) => {
         previousLabel="<"
         renderOnZeroPageCount={null}
       />
-    </>
+    </div>
   );
 };
 
