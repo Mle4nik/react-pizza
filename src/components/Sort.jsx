@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setSortType } from '../redux/slices/filterSilce';
 
-const Sort = ({ sortType, setSortType }) => {
+const Sort = () => {
+
+  const dispatch = useDispatch()
 
   const [isVisible, setIsVisible] = useState(false)
   const [sort, setSort] = useState('популярности')
@@ -10,7 +14,7 @@ const Sort = ({ sortType, setSortType }) => {
   function sortFunction(el) {
     setIsVisible(!isVisible)
     setSort(el.name)
-    setSortType(el.sort)
+    dispatch(setSortType(el.sort))
   }
 
   return (

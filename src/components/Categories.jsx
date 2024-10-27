@@ -8,8 +8,6 @@ const Categories = ({ category }) => {
 
   const dispatch = useDispatch()
 
-  // console.log(setCategoryId);
-
   return (
     <div className="categories">
       <ul>
