@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import debounce from 'lodash.debounce';
 import styles from './SearchBlock.module.scss';
-import { SearchContext } from '../../App';
+import { setSearchValue } from '../../redux/slices/filterSilce';
+import { useDispatch } from 'react-redux';
 
 const SearchBock = () => {
-  const { searchValue, setSearchValue } = React.useContext(SearchContext);
+  const [value, setValue] = useState('');
 
+  const dispatch = useDispatch()
   const inputRef = React.useRef('');
 
   function onClickClear() {
     inputRef.current.focus();
-    setSearchValue('');
+    dispatch(setSearchValue(str));
+  }
+
+  const updateSearchValue = React.useCallback(
+    debounce((str) => {
+      dispatch(setSearchValue(str));
+    }, 300),
+    [],
+  );
+
+  const changeToInput = (event) => {
+    setValue(event.target.value)
+    updateSearchValue(event.target.value)
   }
 
   return (
@@ -32,10 +47,10 @@ const SearchBock = () => {
         className={styles.input}
         type="text"
         placeholder="Поиск пицц..."
-        value={searchValue}
-        onChange={(event) => setSearchValue(event.target.value)}
+        value={value}
+        onChange={(event) => changeToInput(event)}
       />
-      {searchValue && (
+      {value && (
         <svg
           onClick={() => onClickClear()}
           className={styles.clear}

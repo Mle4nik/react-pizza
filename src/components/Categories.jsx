@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setCategoryId } from '../redux/slices/filterSilce'
 
 
-const Categories = ({ category }) => {
+const Categories = ({ categoryId }) => {
   const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
   const dispatch = useDispatch()
@@ -12,7 +12,7 @@ const Categories = ({ category }) => {
     <div className="categories">
       <ul>
         {categories.map((el, index) => {
-          return <li onClick={() => dispatch(setCategoryId(index))} key={index} className={category === index ? 'active' : ''}>{el}</li>;
+          return <li onClick={() => dispatch(setCategoryId(index))} key={index} className={categoryId === index ? 'active' : ''}>{el}</li>;
         })}
       </ul>
     </div>
